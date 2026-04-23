@@ -1,102 +1,124 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Shield, Eye, EyeOff } from 'lucide-react';
+import { X, Info, User, Delete } from 'lucide-react';
 
 export default function Pin({ transactionData }) {
   const navigate = useNavigate();
+  // We want 4 digits based on user request
   const [pin, setPin] = useState('');
-  const [showPin, setShowPin] = useState(false);
 
   const handleKeyPress = (key) => {
     if (key === 'del') {
       setPin(prev => prev.slice(0, -1));
     } else if (key === 'submit') {
-      if (pin.length === 4 || pin.length === 6) {
-        navigate('/success');
+      if (pin.length === 4) {
+        // Unlock and queue audio to play exactly when processing finishes
+        const audio = new Audio('/paytm.mp3');
+        audio.play().catch(() => {}); 
+        audio.pause();
+        audio.currentTime = 0;
+        setTimeout(() => {
+          audio.volume = 1.0;
+          audio.play().catch(e => console.log('Audio error:', e));
+        }, 1500);
+        
+        navigate('/processing');
       }
     } else {
-      if (pin.length < 6) {
+      if (pin.length < 4) {
         setPin(prev => prev + key);
       }
     }
   };
 
   return (
-    <div className="page-container" style={{ backgroundColor: '#1E3A8A', color: 'white' }}>
-      <div style={{ padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <Shield size={24} color="#10B981" />
-          <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>BHIM UPI</span>
-        </div>
-        <div style={{ fontSize: '1.1rem' }}>{transactionData.bankName || 'Bank'}</div>
-      </div>
-
-      <div style={{ backgroundColor: 'white', color: 'black', margin: '20px', borderRadius: '16px', padding: '20px', boxShadow: '0 10px 25px rgba(0,0,0,0.2)' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
-          <span style={{ color: '#6B7280' }}>To</span>
-          <span style={{ fontWeight: 'bold' }}>{transactionData.payeeName || 'Unknown'}</span>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
-          <span style={{ color: '#6B7280' }}>Sending</span>
-          <span style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>₹ {transactionData.amount || '0'}</span>
-        </div>
-        
-        <div style={{ marginTop: '30px', textAlign: 'center' }}>
-          <div style={{ fontSize: '0.9rem', color: '#6B7280', marginBottom: '15px' }}>ENTER 4 OR 6 DIGIT UPI PIN</div>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginBottom: '20px' }}>
-            {[0, 1, 2, 3, 4, 5].map((index) => (
-              <div 
-                key={index}
-                style={{ 
-                  width: '15px', 
-                  height: '15px', 
-                  borderRadius: '50%', 
-                  backgroundColor: index < pin.length ? 'black' : '#E5E7EB',
-                  border: index < pin.length ? 'none' : '1px solid #D1D5DB'
-                }}
-              />
-            ))}
+    <div className="page-container" style={{ backgroundColor: '#F8F9FA', color: '#111827', paddingBottom: 0 }}>
+      {/* Header */}
+      <div style={{ padding: '15px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', backgroundColor: 'white', borderBottom: '1px solid #E5E7EB' }}>
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+            <span style={{ fontSize: '1.5rem', fontWeight: '900', fontStyle: 'italic', letterSpacing: '-1px', color: '#4B5563' }}>
+              UPI
+            </span>
+            <div style={{ display: 'flex', marginLeft: '5px' }}>
+              <div style={{ width: '0', height: '0', borderTop: '8px solid transparent', borderBottom: '8px solid transparent', borderLeft: '10px solid #10B981' }}></div>
+              <div style={{ width: '0', height: '0', borderTop: '8px solid transparent', borderBottom: '8px solid transparent', borderLeft: '10px solid #F59E0B', marginLeft: '-2px' }}></div>
+            </div>
           </div>
-          <button 
-            onClick={() => setShowPin(!showPin)} 
-            style={{ background: 'none', border: 'none', color: '#3B82F6', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px', width: '100%', cursor: 'pointer' }}
-          >
-            {showPin ? <EyeOff size={16} /> : <Eye size={16} />}
-            {showPin ? 'HIDE' : 'SHOW'}
-          </button>
-          {showPin && <div style={{ marginTop: '10px', fontSize: '1.2rem', letterSpacing: '5px' }}>{pin}</div>}
+          <div style={{ fontSize: '0.95rem', color: '#4B5563', fontWeight: '500' }}>
+            {transactionData.bankName || 'SBI Bank'} - 9648
+          </div>
         </div>
-      </div>
-
-      <div className="numpad" style={{ marginTop: 'auto', backgroundColor: '#F3F4F6', color: 'black' }}>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, '', 0].map((key, index) => (
-          <button key={index} className="numpad-btn" onClick={() => key !== '' && handleKeyPress(key.toString())}>
-            {key}
-          </button>
-        ))}
-        <button className="numpad-btn" onClick={() => handleKeyPress('del')}>
-          ⌫
+        <button onClick={() => navigate(-1)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '5px' }}>
+          <X size={26} color="#6B7280" />
         </button>
       </div>
-      <div style={{ backgroundColor: '#F3F4F6', padding: '0 20px 20px 20px', display: 'flex', justifyContent: 'flex-end' }}>
+
+      {/* Transaction Summary Card */}
+      <div style={{ backgroundColor: '#FDF6E3', padding: '15px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #E5E7EB' }}>
+        <div>
+          <div style={{ fontSize: '1.1rem', fontWeight: '600', color: '#111827', marginBottom: '4px' }}>
+            Pay ₹{parseFloat(transactionData.amount || 0).toFixed(2)}
+          </div>
+          <div style={{ fontSize: '0.95rem', color: '#4B5563' }}>
+            To {transactionData.payeeName || 'Unknown User'}
+          </div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ fontSize: '1.2rem', color: '#4B5563' }}>₹ ➔</span>
+          <div style={{ width: '28px', height: '28px', borderRadius: '6px', backgroundColor: '#3B82F6', color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <User size={16} />
+          </div>
+        </div>
+      </div>
+
+      {/* PIN Input Area */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: '60px' }}>
+        <h2 style={{ fontSize: '1.1rem', fontWeight: '600', color: '#111827', marginBottom: '25px' }}>
+          Enter your PIN
+        </h2>
+        <div style={{ display: 'flex', gap: '20px' }}>
+          {[0, 1, 2, 3].map((index) => (
+            <div 
+              key={index}
+              className={`pin-dot ${index < pin.length ? 'filled' : ''}`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Security Warning */}
+      <div style={{ padding: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}>
+        <Info size={16} color="#F59E0B" />
+        <span style={{ fontSize: '0.85rem', color: '#6B7280' }}>
+          Never enter your UPI PIN to receive money
+        </span>
+      </div>
+
+      {/* Custom Keypad */}
+      <div className="pin-keypad">
+        <button className="pin-key" onClick={() => handleKeyPress('1')}>1</button>
+        <button className="pin-key" onClick={() => handleKeyPress('2')}>2</button>
+        <button className="pin-key" onClick={() => handleKeyPress('3')}>3</button>
+        
+        <button className="pin-key" onClick={() => handleKeyPress('4')}>4</button>
+        <button className="pin-key" onClick={() => handleKeyPress('5')}>5</button>
+        <button className="pin-key" onClick={() => handleKeyPress('6')}>6</button>
+        
+        <button className="pin-key" onClick={() => handleKeyPress('7')}>7</button>
+        <button className="pin-key" onClick={() => handleKeyPress('8')}>8</button>
+        <button className="pin-key" onClick={() => handleKeyPress('9')}>9</button>
+        
+        <button className="pin-key" style={{ backgroundColor: '#CFD8DC' }} onClick={() => handleKeyPress('del')}>
+          <Delete size={22} color="#111827" />
+        </button>
+        <button className="pin-key" onClick={() => handleKeyPress('0')}>0</button>
         <button 
+          className="pin-key pin-key-pay" 
           onClick={() => handleKeyPress('submit')}
-          style={{ 
-            backgroundColor: (pin.length === 4 || pin.length === 6) ? '#10B981' : '#D1D5DB', 
-            color: 'white', 
-            border: 'none', 
-            width: '60px', 
-            height: '60px', 
-            borderRadius: '30px',
-            fontSize: '1.5rem',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            cursor: (pin.length === 4 || pin.length === 6) ? 'pointer' : 'default',
-            transition: 'background-color 0.3s'
-          }}
+          style={{ opacity: pin.length === 4 ? 1 : 0.6 }}
         >
-          ✓
+          Pay
         </button>
       </div>
     </div>

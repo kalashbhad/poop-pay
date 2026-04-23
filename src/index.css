@@ -415,3 +415,152 @@ body {
   font-weight: 500;
   text-align: center;
 }
+
+/* Amount Page Custom Styles */
+.amount-key {
+  background-color: #F3F4F6;
+  border: none;
+  font-size: 1.8rem;
+  font-weight: 500;
+  height: 55px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #111827;
+}
+
+.amount-key:active {
+  background-color: #E5E7EB;
+}
+
+.amount-key-blue {
+  background-color: #DBEAFE;
+  color: #1E3A8A;
+}
+
+.amount-key-dark {
+  background-color: #374151;
+  color: white;
+}
+
+.amount-display-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 30px 0;
+}
+
+.amount-currency {
+  font-size: 2rem;
+  color: #9CA3AF;
+  margin-right: 5px;
+  margin-top: 8px;
+}
+
+.amount-value {
+  font-size: 5.5rem;
+  font-weight: 600;
+  color: #D1D5DB; /* Gray when 0 */
+  line-height: 1;
+}
+
+.amount-value.has-value {
+  color: #111827; /* Black when has value */
+}
+
+/* PIN Page Custom Styles */
+.pin-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 20px 25px;
+  background-color: #F4F5F7;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  margin-top: auto;
+}
+
+.pin-key {
+  background-color: #FFFFFF;
+  border: none;
+  font-size: 1.8rem;
+  font-weight: 400;
+  height: 65px;
+  border-radius: 35px; /* Fully rounded like pills/circles */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #111827;
+}
+
+.pin-key:active {
+  background-color: #E5E7EB;
+}
+
+.pin-key-pay {
+  background-color: #1E40AF;
+  color: white;
+  font-weight: 600;
+  font-size: 1.2rem;
+  border-radius: 35px;
+}
+
+.pin-key-pay:active {
+  background-color: #1E3A8A;
+}
+
+.pin-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid #6B7280;
+  background-color: transparent;
+  transition: all 0.1s;
+}
+
+.pin-dot.filled {
+  background-color: #111827;
+  border-color: #111827;
+}
+
+/* Processing Page Animations */
+.shield-slide-up {
+  animation: slide-up 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(120px);
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-40px);
+    opacity: 0;
+  }
+}
+
+/* Success Pop Animations */
+.pop-scale-1 {
+  animation: pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.pop-scale-2 {
+  animation: pop-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s forwards;
+  opacity: 0;
+}
+
+.pop-scale-3 {
+  animation: pop-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards;
+  opacity: 0;
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
