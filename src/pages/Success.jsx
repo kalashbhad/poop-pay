@@ -17,10 +17,10 @@ export default function Success({ transactionData }) {
 
   return (
     <div className="page-container" style={{ backgroundColor: '#10B981', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-      {/* Surprise Poop / Fart Sound */}
+      {/* Payment Done Tune */}
       <audio 
         ref={audioRef} 
-        src="https://www.myinstants.com/media/sounds/fart-meme-sound.mp3" 
+        src="/paytm.mp3" 
         preload="auto"
       />
       

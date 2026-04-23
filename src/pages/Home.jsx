@@ -1,81 +1,183 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { QrCode, Send, CreditCard, History, User, Bell } from 'lucide-react';
+import { 
+  Search, Bell, QrCode, Smartphone, Landmark, 
+  FileText, Zap, Car, CreditCard, ChevronRight,
+  UserPlus, Calendar, IndianRupee, TrendingUp, Fingerprint
+} from 'lucide-react';
 
 export default function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className="page-container">
-      <div className="header" style={{ justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{ width: '40px', height: '40px', borderRadius: '20px', backgroundColor: '#3B82F6', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
-            <User size={20} />
+    <div className="page-container" style={{ backgroundColor: '#F8F9FA' }}>
+      
+      {/* Header */}
+      <div className="dashboard-header">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+          <div style={{ 
+            width: '45px', 
+            height: '45px', 
+            borderRadius: '50%', 
+            backgroundColor: '#A7F3D0', 
+            color: '#065F46', 
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            fontWeight: 'bold',
+            fontSize: '1.2rem'
+          }}>
+            KB
           </div>
-          <div>
-            <div style={{ fontSize: '0.8rem', color: '#BFDBFE' }}>Add address</div>
-            <div className="header-title" style={{ fontSize: '1rem' }}>Sushant</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <span style={{ fontSize: '1.4rem', fontWeight: '800', color: '#002970', letterSpacing: '-0.5px' }}>paytm</span>
+            <span style={{ color: '#00B9F5', fontSize: '0.8rem', fontWeight: 'bold' }}>UPI</span>
           </div>
         </div>
-        <Bell size={24} color="white" />
+        <div style={{ display: 'flex', gap: '15px', color: '#111827' }}>
+          <Search size={24} />
+          <Bell size={24} />
+        </div>
       </div>
 
-      <div className="balance-card">
-        <div style={{ fontSize: '0.9rem', opacity: 0.9 }}>Total Balance</div>
-        <div style={{ fontSize: '2rem', fontWeight: 'bold', margin: '10px 0' }}>₹ 45,230.50</div>
-        <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>Savings Account •••• 1234</div>
+      {/* Promo Banner */}
+      <div className="promo-banner">
+        <div style={{ maxWidth: '60%', zIndex: 2 }}>
+          <h2 style={{ fontSize: '1.2rem', fontWeight: '700', color: '#111827', marginBottom: '10px', lineHeight: '1.3' }}>
+            Super Secure Payments with <span style={{ color: '#059669' }}>Fingerprint</span>
+          </h2>
+          <button style={{ 
+            background: 'white', 
+            color: '#002970', 
+            border: 'none', 
+            padding: '8px 16px', 
+            borderRadius: '20px', 
+            fontSize: '0.85rem', 
+            fontWeight: '600',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '5px',
+            boxShadow: '0 2px 5px rgba(0,0,0,0.05)'
+          }}>
+            Activate Now <ChevronRight size={14} />
+          </button>
+        </div>
+        <div style={{ position: 'absolute', right: '-10px', bottom: '-10px', opacity: 0.9 }}>
+           {/* Abstract illustration representation */}
+           <div style={{ width: '120px', height: '140px', backgroundColor: '#BAE6FD', borderRadius: '20px', transform: 'rotate(10deg)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <div style={{ width: '60px', height: '80px', backgroundColor: 'white', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Fingerprint size={40} color="#059669" />
+              </div>
+           </div>
+        </div>
       </div>
 
-      <div className="card">
-        <div style={{ display: 'flex', justifyContent: 'space-around', margin: '10px 0' }}>
-          <button className="icon-btn" onClick={() => navigate('/scanner')}>
-            <div className="icon-circle" style={{ backgroundColor: '#1E3A8A' }}>
+      {/* UPI Money Transfer */}
+      <div className="dashboard-card">
+        <h3 className="text-h3">UPI Money Transfer</h3>
+        <div className="icon-grid-4">
+          <button className="grid-item" onClick={() => navigate('/scanner')}>
+            <div className="icon-circle-blue">
               <QrCode size={24} />
             </div>
-            Scan & Pay
+            <span>Scan<br/>& Pay</span>
           </button>
-          <button className="icon-btn">
-            <div className="icon-circle">
-              <Send size={24} />
+          <button className="grid-item">
+            <div className="icon-circle-blue">
+              <UserPlus size={24} />
             </div>
-            To Mobile
+            <span>To Mobile /<br/>Contact</span>
           </button>
-          <button className="icon-btn">
-            <div className="icon-circle">
-              <CreditCard size={24} />
+          <button className="grid-item">
+            <div className="icon-circle-blue">
+              <Landmark size={24} />
             </div>
-            To Bank
+            <span>To Bank &<br/>Self A/c</span>
           </button>
-          <button className="icon-btn">
-            <div className="icon-circle">
-              <History size={24} />
+          <button className="grid-item">
+            <div className="icon-circle-blue">
+              <FileText size={24} />
             </div>
-            History
+            <span>Balance &<br/>History</span>
           </button>
         </div>
       </div>
 
-      <div className="card" style={{ flex: 1 }}>
-        <h3 style={{ marginBottom: '15px', fontSize: '1.1rem' }}>Recent Payees</h3>
-        <div style={{ display: 'flex', gap: '15px', overflowX: 'auto', paddingBottom: '10px' }}>
-          {['Rohan', 'Amit', 'Priya', 'Mummy'].map((name, i) => (
-            <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' }}>
-              <div style={{ width: '50px', height: '50px', borderRadius: '25px', backgroundColor: '#E5E7EB', display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 'bold', color: '#4B5563' }}>
-                {name[0]}
-              </div>
-              <span style={{ fontSize: '0.8rem' }}>{name}</span>
+      {/* Recharge & Bills */}
+      <div className="dashboard-card">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
+          <h3 style={{ fontSize: '1.1rem', fontWeight: '700', color: '#111827' }}>Recharge & Bills</h3>
+          <span style={{ fontSize: '0.85rem', color: '#002970', fontWeight: '600' }}>View More</span>
+        </div>
+        <div className="icon-grid-4">
+          <button className="grid-item">
+            <div className="icon-circle-light">
+              <Smartphone size={24} />
             </div>
-          ))}
+            <span>Mobile<br/>Recharge</span>
+          </button>
+          <button className="grid-item">
+            <div className="icon-circle-light">
+              <Car size={24} />
+            </div>
+            <span>FASTag<br/>Recharge</span>
+          </button>
+          <button className="grid-item">
+            <div className="icon-circle-light">
+              <Zap size={24} />
+            </div>
+            <span>Electricity<br/>Bill</span>
+          </button>
+          <button className="grid-item">
+            <div className="icon-circle-light">
+              <Calendar size={24} />
+            </div>
+            <span>Loan EMI<br/>Payment</span>
+          </button>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '15px' }}>
+          <div style={{ width: '40px', height: '4px', backgroundColor: '#E5E7EB', borderRadius: '2px' }}>
+            <div style={{ width: '20px', height: '100%', backgroundColor: '#9CA3AF', borderRadius: '2px' }}></div>
+          </div>
         </div>
       </div>
-      
-      {/* Big floating button to make it obvious where to click for the prototype */}
-      <div style={{ padding: '20px', marginTop: 'auto' }}>
-        <button className="btn-primary" onClick={() => navigate('/scanner')} style={{ padding: '18px', fontSize: '1.2rem', borderRadius: '16px', boxShadow: '0 10px 15px -3px rgba(30, 58, 138, 0.3)' }}>
-          <QrCode size={24} />
-          Scan any QR to Pay
+
+      {/* Bottom Cards Section */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', padding: '0 16px', marginBottom: '20px' }}>
+        {/* Left tall card */}
+        <div style={{ backgroundColor: 'white', borderRadius: '16px', padding: '15px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gridRow: 'span 2' }}>
+          <div>
+            <h4 style={{ fontWeight: '700', marginBottom: '8px' }}>Paytm Postpaid</h4>
+            <p style={{ fontSize: '0.8rem', color: '#6B7280', lineHeight: '1.4' }}>Access up to ₹60,000 - Zero paperwork</p>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '15px' }}>
+             <CreditCard size={32} color="#9CA3AF" />
+          </div>
+        </div>
+
+        {/* Right top card */}
+        <div style={{ backgroundColor: 'white', borderRadius: '16px', padding: '15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h4 style={{ fontWeight: '600', fontSize: '0.9rem' }}>Loan Upto<br/>₹15 Lakh</h4>
+          <div style={{ width: '30px', height: '30px', borderRadius: '15px', backgroundColor: '#F3F4F6', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+             <IndianRupee size={16} color="#6B7280" />
+          </div>
+        </div>
+
+        {/* Right bottom card */}
+        <div style={{ backgroundColor: 'white', borderRadius: '16px', padding: '15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h4 style={{ fontWeight: '600', fontSize: '0.9rem' }}>Trending<br/>Stocks</h4>
+          <TrendingUp size={24} color="#9CA3AF" />
+        </div>
+      </div>
+
+      {/* Floating Action Button */}
+      <div className="fab-container">
+        <button className="fab-button" onClick={() => navigate('/scanner')}>
+          <QrCode size={22} />
+          Scan QR
         </button>
       </div>
+
     </div>
   );
 }
