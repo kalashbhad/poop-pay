@@ -1,6 +1,6 @@
-# React + Vite
+# Poop oay
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+its just for fun pupose i was thinking to create a payemnt app whith payment notification but then i chnaged my mind
 
 Currently, two official plugins are available:
 
