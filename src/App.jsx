@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import Home from './pages/Home';
 import Scanner from './pages/Scanner';
 import Amount from './pages/Amount';
@@ -27,6 +28,7 @@ function App() {
         <Route path="/success" element={<Success transactionData={transactionData} />} />
         <Route path="/receipt" element={<Receipt transactionData={transactionData} />} />
       </Routes>
+      <Analytics />
     </BrowserRouter>
   );
 }
